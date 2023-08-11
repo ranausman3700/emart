@@ -1,3 +1,15 @@
 const appname = "eMart";
 const appversion = "Version 1.0.0";
-const credits = "@Baaba Devs";
+const credits = "@EclixTech";
+const email = "Email";
+const emailHint = "admin@email.com";
+const password = "Password";
+const passwordHint = "*******";
+const retypePassword = "Retype Password";
+const name = "Name";
+const nameHint = "eclixTech";
+const forgetPass = "Forget Password";
+const login = "Log in";
+const signup = "Sign up";
+const createNewAcount = "or, create a new account";
+const loginWith = "Log in with";
