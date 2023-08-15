@@ -1,13 +1,19 @@
-import 'package:emart/consts/list.dart';
 import 'package:emart/widgets_common/applogo_widget.dart';
 import 'package:emart/widgets_common/bg_widget.dart';
 import 'package:emart/widgets_common/button.dart';
 import 'package:emart/widgets_common/custom_textfeild.dart';
-import '../../consts/consts.dart';
+import 'package:emart/consts/consts.dart';
+import 'package:get/get.dart';
 
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
+  @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+  bool? isCheck = false;
   @override
   Widget build(BuildContext context) {
     return bgWidget(Scaffold(
@@ -18,10 +24,14 @@ class SignupScreen extends StatelessWidget {
             (context.screenHeight * 0.1).heightBox,
             applogoWidget(),
             15.heightBox,
-            "login to $appname".text.fontFamily(bold).white.size(18).make(),
+            "join the $appname".text.fontFamily(bold).white.size(18).make(),
             10.heightBox,
             Column(
               children: [
+                customTextField(
+                  title: name,
+                  hint: nameHint,
+                ),
                 customTextField(
                   title: email,
                   hint: emailHint,
@@ -30,6 +40,10 @@ class SignupScreen extends StatelessWidget {
                   title: password,
                   hint: passwordHint,
                 ),
+                customTextField(
+                  title: password,
+                  hint: retypePassword,
+                ),
                 Align(
                   alignment: Alignment.topRight,
                   child: TextButton(
@@ -37,40 +51,84 @@ class SignupScreen extends StatelessWidget {
                     child: forgetPass.text.make(),
                   ),
                 ),
+                Row(
+                  children: [
+                    Checkbox(
+                      activeColor: Colors.deepOrange,
+                      checkColor: Colors.white,
+                      value: isCheck,
+                      onChanged: (newValue) {
+                        setState(() {
+                          isCheck = newValue;
+                        });
+                      },
+                    ),
+                    10.widthBox,
+                    Expanded(
+                      child: RichText(
+                        text: const TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "I agree to the ",
+                              style: TextStyle(
+                                  fontFamily: regular, color: fontGrey),
+                            ),
+                            TextSpan(
+                              text: termAndCond,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: deepOrange),
+                            ),
+                            TextSpan(
+                              text: " & ",
+                              style: TextStyle(
+                                  fontFamily: regular, color: fontGrey),
+                            ),
+                            TextSpan(
+                              text: privacyPolicy,
+                              style: TextStyle(
+                                  fontFamily: regular, color: deepOrange),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
                 5.heightBox,
                 ourButton(
-                  color: deepOrange,
-                  title: login,
-                  textColor: whiteColor,
-                  onPress: () {},
-                ).box.width(context.screenWidth - 50).make(),
-                5.heightBox,
-                createNewAcount.text.color(fontGrey).make(),
-                5.heightBox,
-                ourButton(
-                  color: lightGolden,
+                  color: isCheck == true ? deepOrange : lightGrey,
                   title: signup,
                   textColor: whiteColor,
                   onPress: () {},
                 ).box.width(context.screenWidth - 50).make(),
                 10.heightBox,
-                loginWith.text.color(fontGrey).make(),
-                5.heightBox,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(
-                      3,
-                      (index) => Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: CircleAvatar(
-                              radius: 25,
-                              backgroundColor: lightGrey,
-                              child: Image.asset(
-                                socialIconList[index],
-                                width: 30,
-                              ),
-                            ),
-                          )),
+                  children: [
+                    alreadyHaveAccount.text.color(fontGrey).make(),
+                    login.text.color(deepOrange).make().onTap(() {
+                      Get.back();
+                    }),
+                    // RichText(
+                    //   text: const TextSpan(
+                    //     children: [
+                    //       TextSpan(
+                    //         text: alreadyHaveAccount,
+                    //         style:
+                    //             TextStyle(fontFamily: regular, color: fontGrey),
+                    //       ),
+                    //       TextSpan(
+                    //         text: login,
+                    //         style: TextStyle(
+                    //             fontFamily: regular, color: deepOrange),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ).onTap(() {
+                    //   Get.back();
+                    // }),
+                  ],
                 ),
               ],
             )
